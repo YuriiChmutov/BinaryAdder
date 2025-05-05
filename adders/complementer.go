@@ -1,9 +1,44 @@
 package adders
 
+import (
+	"Adder/gates"
+	"fmt"
+)
+
+// The type responsible for what value needs to be added to the input number
+// To obtain the maximum number in digits
+
+// In the case of binary computing, this is called "One's Complement"
+
 type Complementer struct {
-	Inversion bool
+	Inversion int8
 }
 
 func NewComplementer(inversion bool) *Complementer {
-	return &Complementer{inversion}
+	binaryInversionFormat := boolToBit(inversion)
+	return &Complementer{binaryInversionFormat}
+}
+
+func boolToBit(b bool) int8 {
+	if b {
+		return 1
+	}
+	return 0
+}
+
+// XOR operation is used because if the Inversion value is 1, then the input value will be inverted.
+// If it is 0, then the value will not change.
+
+func (complementer Complementer) Complete(A string) string {
+	var completed string
+
+	for i := 0; i < len(A); i++ {
+		bit := int8(A[i] - '0')
+
+		completedBit := gates.XOR(complementer.Inversion, bit)
+
+		completed += fmt.Sprintf("%d", completedBit)
+	}
+
+	return completed
 }
