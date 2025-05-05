@@ -2,29 +2,33 @@ package main
 
 import (
 	"Adder/adders"
+	"Adder/gates"
+	"Adder/helplers"
 	"fmt"
 )
 
 // todo: think about different types of input (not only binary);
 // todo: convert input to binary, use FullAdder and then return the result in specific type
 
-const onceComplement = true
+const subtraction = true
 
 func main() {
 
-	//A := "10101010" // 170
-	//B := "11001100" // 204
-
-	A := "111111111111"
-	B := "100000000000"
-
-	complementer := adders.NewComplementer(onceComplement)
-	complementResult := complementer.Complete(B)
-	fmt.Println(complementResult)
-
+	complementer := adders.NewComplementer(subtraction)
 	adder := adders.Adder{}
 
-	sum, carry := adder.AddBits(A, B)
+	A := "110"
+	B := "100"
+
+	// if complementer.Inversion = 1 (true), then B will complement to once (inverted), if not - leave the same value
+	complementOnesB := complementer.Complete(B)
+	fmt.Println(complementOnesB)
+
+	sum, carry := adder.AddBits(A, complementOnesB, helplers.BoolToBit(subtraction))
+
+	// carry overflow or disappearance -> if [+] then overflow, if [-] then disappearance
+	carry = gates.XOR(carry, helplers.BoolToBit(subtraction))
+
 	fmt.Println("Sum:", sum)
 	fmt.Println("Carry:", carry)
 

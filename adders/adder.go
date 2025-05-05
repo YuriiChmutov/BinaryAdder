@@ -6,9 +6,9 @@ import (
 
 type Adder struct{}
 
-func (a Adder) AddBits(A, B string) (string, int8) {
+func (a Adder) AddBits(A, B string, carryIn int8) (string, int8) {
 	var sum string
-	var carry int8 = 0
+	carry := carryIn
 
 	fa := FullAdder{}
 

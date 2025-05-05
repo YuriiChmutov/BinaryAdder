@@ -2,6 +2,7 @@ package adders
 
 import (
 	"Adder/gates"
+	"Adder/helplers"
 	"fmt"
 )
 
@@ -15,15 +16,8 @@ type Complementer struct {
 }
 
 func NewComplementer(inversion bool) *Complementer {
-	binaryInversionFormat := boolToBit(inversion)
+	binaryInversionFormat := helplers.BoolToBit(inversion)
 	return &Complementer{binaryInversionFormat}
-}
-
-func boolToBit(b bool) int8 {
-	if b {
-		return 1
-	}
-	return 0
 }
 
 // XOR operation is used because if the Inversion value is 1, then the input value will be inverted.
