@@ -16,7 +16,9 @@ const subtraction = false
 func main() {
 	//testingComlementerAndAdder()
 
-	testingRsTrigger()
+	//testingRsTrigger()
+
+	testingDTrigger()
 }
 
 func testingComlementerAndAdder() {
@@ -43,6 +45,7 @@ func testingComlementerAndAdder() {
 
 func testingRsTrigger() {
 	trigger := triggers.NewRSTrigger()
+	fmt.Println(trigger.GetQ())
 
 	trigger.Update(1, 0, 1) // setting 1 and enabling to save
 	fmt.Println(trigger.GetQ())
@@ -57,5 +60,24 @@ func testingRsTrigger() {
 	fmt.Println(trigger.GetQ())
 
 	trigger.Update(0, 1, 1) // resetting trigger, Q become = 0
+	fmt.Println(trigger.GetQ())
+
+	trigger.Update(1, 0, 1) // setting 1 and enabling to save
+	fmt.Println(trigger.GetQ())
+}
+
+func testingDTrigger() {
+	trigger := triggers.NewDTrigger()
+
+	trigger.Update(1, 1)
+	fmt.Println(trigger.GetQ())
+
+	trigger.Update(0, 1)
+	fmt.Println(trigger.GetQ())
+
+	trigger.Update(1, 0)
+	fmt.Println(trigger.GetQ())
+
+	trigger.Update(1, 1)
 	fmt.Println(trigger.GetQ())
 }
