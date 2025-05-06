@@ -42,17 +42,20 @@ func testingComlementerAndAdder() {
 }
 
 func testingRsTrigger() {
-	trigger := triggers.RSTrigger{}
+	trigger := triggers.NewRSTrigger()
 
-	trigger.Update(1, 0) // setting
-	fmt.Println(trigger.Output())
+	trigger.Update(1, 0, 1) // setting 1 and enabling to save
+	fmt.Println(trigger.GetQ())
 
-	trigger.Update(0, 0) // saving
-	fmt.Println(trigger.Output())
+	trigger.Update(0, 0, 0) // no matter S and R, NOT ENABLE to save new state
+	fmt.Println(trigger.GetQ())
 
-	trigger.Update(0, 1) // reset
-	fmt.Println(trigger.Output())
+	trigger.Update(0, 0, 1) // S and R = 0, it's a Saving mode in trigger, the state doesn't change
+	fmt.Println(trigger.GetQ())
 
-	trigger.Update(0, 0) // saving
-	fmt.Println(trigger.Output())
+	trigger.Update(0, 1, 0) // enable = 0, then state doesn't change
+	fmt.Println(trigger.GetQ())
+
+	trigger.Update(0, 1, 1) // resetting trigger, Q become = 0
+	fmt.Println(trigger.GetQ())
 }
