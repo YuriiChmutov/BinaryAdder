@@ -18,11 +18,11 @@ const subtraction = false
 func main() {
 	//testingComlementerAndAdder()
 	//testingRsTrigger()
-	testingDTrigger()
-
+	//testingDTrigger()
 	//testingLatch8()
-
 	//testingSelector()
+
+	testingAdderWithLatch()
 }
 
 func testingComlementerAndAdder() {
@@ -121,4 +121,29 @@ func testingSelector() {
 	selector := selectors.NewSelector()
 	result := selector.Select(A, B, 0)
 	fmt.Println(result)
+}
+
+func testingAdderWithLatch() {
+	latch := latches.NewLatch8()
+	complementer := adders.NewComplementer(false)
+	adder := adders.Adder{}
+	//selector := selectors.NewSelector()
+
+	a := "00000001"
+	b := "00000001"
+	c := "01111100"
+
+	b = complementer.Complete(b)
+
+	sum1, carry1 := adder.AddBits(a, b, 0)
+	latch.Update(sum1, 1, 0)
+
+	fmt.Println(latch.GetData())
+
+	sum2, carry2 := adder.AddBits(latch.GetData(), c, carry1)
+
+	//latch.Reset()
+	//latch.Update(sum2, 1, 0)
+	//fmt.Println(carry2, latch.GetData())
+	fmt.Println(carry2, sum2)
 }
