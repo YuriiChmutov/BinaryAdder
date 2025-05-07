@@ -18,11 +18,11 @@ const subtraction = false
 func main() {
 	//testingComlementerAndAdder()
 	//testingRsTrigger()
-	//testingDTrigger()
+	testingDTrigger()
 
 	//testingLatch8()
 
-	testingSelector()
+	//testingSelector()
 }
 
 func testingComlementerAndAdder() {
@@ -51,38 +51,41 @@ func testingRsTrigger() {
 	trigger := triggers.NewRSTrigger()
 	fmt.Println(trigger.GetQ())
 
-	trigger.Update(1, 0, 1) // setting 1 and enabling to save
+	trigger.Update(1, 0, 1, 0) // setting 1 and enabling to save
 	fmt.Println(trigger.GetQ())
 
-	trigger.Update(0, 0, 0) // no matter S and R, NOT ENABLE to save new state
+	trigger.Update(0, 0, 0, 0) // no matter S and R, NOT ENABLE to save new state
 	fmt.Println(trigger.GetQ())
 
-	trigger.Update(0, 0, 1) // S and R = 0, it's a Saving mode in trigger, the state doesn't change
+	trigger.Update(0, 0, 1, 0) // S and R = 0, it's a Saving mode in trigger, the state doesn't change
 	fmt.Println(trigger.GetQ())
 
-	trigger.Update(0, 1, 0) // enable = 0, then state doesn't change
+	trigger.Update(0, 1, 0, 0) // enable = 0, then state doesn't change
 	fmt.Println(trigger.GetQ())
 
-	trigger.Update(0, 1, 1) // resetting trigger, Q become = 0
+	trigger.Update(0, 1, 1, 0) // resetting trigger, Q become = 0
 	fmt.Println(trigger.GetQ())
 
-	trigger.Update(1, 0, 1) // setting 1 and enabling to save
+	trigger.Update(1, 0, 1, 0) // setting 1 and enabling to save
 	fmt.Println(trigger.GetQ())
 }
 
 func testingDTrigger() {
 	trigger := triggers.NewDTrigger()
 
-	trigger.Update(1, 1)
+	trigger.Update(1, 1, 0)
 	fmt.Println(trigger.GetQ())
 
-	trigger.Update(0, 1)
+	trigger.Update(0, 1, 0)
 	fmt.Println(trigger.GetQ())
 
-	trigger.Update(1, 0)
+	trigger.Update(1, 0, 0)
 	fmt.Println(trigger.GetQ())
 
-	trigger.Update(1, 1)
+	trigger.Update(1, 1, 0)
+	fmt.Println(trigger.GetQ())
+
+	trigger.Update(0, 0, 1)
 	fmt.Println(trigger.GetQ())
 }
 
@@ -90,7 +93,7 @@ func testingLatch8() {
 	latch := latches.NewLatch8()
 	var enable int8 = 1
 
-	latch.Update("10101010", enable)
+	latch.Update("10101010", enable, 0)
 
 	data := latch.GetData()
 	fmt.Println(data)
@@ -100,12 +103,12 @@ func testingLatch8() {
 	data = latch.GetData()
 	fmt.Println(data)
 
-	latch.Update("11", enable)
+	latch.Update("11", enable, 0)
 
 	data = latch.GetData()
 	fmt.Println(data)
 
-	latch.Update("11111111", enable)
+	latch.Update("11111111", enable, 0)
 
 	data = latch.GetData()
 	fmt.Println(data)

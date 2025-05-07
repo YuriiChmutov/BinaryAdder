@@ -18,7 +18,7 @@ func NewLatch8() *Latch8 {
 	return &latch
 }
 
-func (latch *Latch8) Update(data string, enable int8) {
+func (latch *Latch8) Update(data string, enable, clear int8) {
 
 	if len(data) > 8 {
 		panic("Input data can't be longer than 8 bits")
@@ -31,13 +31,13 @@ func (latch *Latch8) Update(data string, enable int8) {
 
 	for i := range latch.triggers {
 		item := int8(data[i] - '0')
-		latch.triggers[i].Update(item, enable)
+		latch.triggers[i].Update(item, enable, clear)
 	}
 }
 
-func (latch *Latch8) Reset() {
+func (latch *Latch8) Reset() { // reset without using clear signal
 	for i := range latch.triggers {
-		latch.triggers[i].Update(0, 1)
+		latch.triggers[i].Update(0, 1, 0)
 	}
 }
 

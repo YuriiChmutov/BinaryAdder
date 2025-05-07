@@ -27,9 +27,11 @@ func NewRSTrigger() *RSTrigger {
 
 // update function with signal which allows changing the state
 
-func (rs *RSTrigger) Update(S, R, enable int8) { // S, R, enable - enters; S - set, R - reset, enable - save this bit;
+func (rs *RSTrigger) Update(S, R, enable, clear int8) { // S, R, enable - enters; S - set, R - reset, enable - save this bit;
 	s := gates.AND(S, enable)
 	r := gates.AND(R, enable)
+
+	r = gates.OR(r, clear)
 
 	newQ := rs.Q
 	newNotQ := rs.notQ
