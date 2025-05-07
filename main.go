@@ -5,6 +5,7 @@ import (
 	"Adder/gates"
 	"Adder/helplers"
 	"Adder/latches"
+	"Adder/selectors"
 	"Adder/triggers"
 	"fmt"
 )
@@ -19,7 +20,9 @@ func main() {
 	//testingRsTrigger()
 	//testingDTrigger()
 
-	testingLatch8()
+	//testingLatch8()
+
+	testingSelector()
 }
 
 func testingComlementerAndAdder() {
@@ -106,4 +109,13 @@ func testingLatch8() {
 
 	data = latch.GetData()
 	fmt.Println(data)
+}
+
+func testingSelector() {
+	A := "10000001"
+	B := "01111100"
+
+	selector := selectors.NewSelector()
+	result := selector.Select(A, B, 0)
+	fmt.Println(result)
 }
