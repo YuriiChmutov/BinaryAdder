@@ -4,6 +4,7 @@ import (
 	"Adder/adders"
 	"Adder/gates"
 	"Adder/helplers"
+	"Adder/latches"
 	"Adder/triggers"
 	"fmt"
 )
@@ -15,10 +16,10 @@ const subtraction = false
 
 func main() {
 	//testingComlementerAndAdder()
-
 	//testingRsTrigger()
+	//testingDTrigger()
 
-	testingDTrigger()
+	testingLatch8()
 }
 
 func testingComlementerAndAdder() {
@@ -80,4 +81,29 @@ func testingDTrigger() {
 
 	trigger.Update(1, 1)
 	fmt.Println(trigger.GetQ())
+}
+
+func testingLatch8() {
+	latch := latches.NewLatch8()
+	var enable int8 = 1
+
+	latch.Update("10101010", enable)
+
+	data := latch.GetData()
+	fmt.Println(data)
+
+	latch.Reset()
+
+	data = latch.GetData()
+	fmt.Println(data)
+
+	latch.Update("11", enable)
+
+	data = latch.GetData()
+	fmt.Println(data)
+
+	latch.Update("11111111", enable)
+
+	data = latch.GetData()
+	fmt.Println(data)
 }
